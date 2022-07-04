@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="violet2233">
+    
+    <title>
+        
+            MySQL基础笔记 |
+        
+        我的小站
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/violet2233/image-host/code-image/favicon.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/violet2233/image-host/code-image/favicon.png","favicon":"https://cdn.jsdelivr.net/gh/violet2233/image-host/code-image/favicon.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":null,"description":"你好"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn.jsdelivr.net/gh/violet2233/image-host/code-image/favicon.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+                我的小站
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MySQL基础笔记</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/violet2233/image-host/code-image/favicon.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">violet2233</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-06-21 15:38:32</span>
+        <span class="mobile">2022-06-21 15:38</span>
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="mysql基础知识"><a href="#mysql基础知识" class="headerlink" title="mysql基础知识"></a>mysql基础知识</h1><h2 id="安装及配置环境"><a href="#安装及配置环境" class="headerlink" title="安装及配置环境"></a>安装及配置环境</h2><p>官网下载要使用的版本，按照安装程序来即可</p>
+<p>配置环境变量和java类似</p>
+<p>navicat和sqlyog一直下一步即可</p>
+<h2 id="数据库的基本使用"><a href="#数据库的基本使用" class="headerlink" title="数据库的基本使用"></a>数据库的基本使用</h2><p>登录：mysql -u root -p -h地址 -P端口号</p>
+<p>查看数据库：show databases;</p>
+<p>删除数据库：drop database if exists db_name(谨慎使用)</p>
+<p>备份数据库：mysqldump -u 用户名 -p -B 数据库1 数据库2 数据库N &gt; 文件名.sql(cmd或终端使用)</p>
+<p>恢复数据库：socrce 文件名.sql(mysql命令行使用)</p>
+<h2 id="常用数据类型"><a href="#常用数据类型" class="headerlink" title="常用数据类型"></a>常用数据类型</h2><h3 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h3><ul>
+<li>bit(m)</li>
+<li>tinyint(unsigend)</li>
+<li>smallint(unsigend)</li>
+<li>mediumint(unsigend)</li>
+<li>int(unsigend)</li>
+<li>bigint(unsigend)</li>
+<li>float(unsigend)</li>
+<li>double(unsigend)</li>
+<li>decimal(unsigend)</li>
+</ul>
+<h3 id="字符串，二进制"><a href="#字符串，二进制" class="headerlink" title="字符串，二进制"></a>字符串，二进制</h3><ul>
+<li>char(size)</li>
+<li>varchar(size)</li>
+<li>blob</li>
+<li>text</li>
+</ul>
+<h3 id="日期类型"><a href="#日期类型" class="headerlink" title="日期类型"></a>日期类型</h3><ul>
+<li>date </li>
+<li>datetime</li>
+<li>timestamp</li>
+</ul>
+<h2 id="表的基本使用"><a href="#表的基本使用" class="headerlink" title="表的基本使用"></a>表的基本使用</h2><h3 id="创建表：create-table-tb-name"><a href="#创建表：create-table-tb-name" class="headerlink" title="创建表：create table tb_name();"></a>创建表：create table tb_name();</h3><h3 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h3><ul>
+<li>添加列：alter table tb_name add();</li>
+<li>修改列：alter table tb_name modify()</li>
+<li>删除列：drop table tb_name drop()   desc可以查看表的结构</li>
+</ul>
+<h2 id="数据库的crud"><a href="#数据库的crud" class="headerlink" title="数据库的crud"></a>数据库的crud</h2><h3 id="添加语句：insert"><a href="#添加语句：insert" class="headerlink" title="添加语句：insert"></a>添加语句：insert</h3><ul>
+<li>insert into tb_name values()</li>
+</ul>
+<h3 id="修改语句：update"><a href="#修改语句：update" class="headerlink" title="修改语句：update"></a>修改语句：update</h3><ul>
+<li>update tb_name set up_val [where]</li>
+</ul>
+<h3 id="删除语句：delete"><a href="#删除语句：delete" class="headerlink" title="删除语句：delete"></a>删除语句：delete</h3><ul>
+<li>delete from tb_name [where]</li>
+</ul>
+<h3 id="查询语句：select"><a href="#查询语句：select" class="headerlink" title="查询语句：select"></a>查询语句：select</h3><ul>
+<li><p>select *{col1,col2} from tb_name[where]</p>
+<ul>
+<li><p>select：查询哪些数据</p>
+</li>
+<li><p>col：查询哪些列</p>
+</li>
+<li><p>*：表示查询所有列</p>
+</li>
+<li><p>from：指定查询哪张表</p>
+</li>
+<li><p>distinct：可选项，查询时去重</p>
+</li>
+<li><p>order by：以哪一列进行排序</p>
+<ul>
+<li>asc：升序(默认)</li>
+<li>desc：降序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>增强查询</p>
+<ul>
+<li><p>like操作符</p>
+<ul>
+<li>%: 表示0到多个字符</li>
+<li>_: 表示单个字符</li>
+</ul>
+</li>
+<li><p>分页查询</p>
+<ul>
+<li>select …limit start,rows 每页显示的记录数 * （第几页-1）,每页显示的记录数</li>
+</ul>
+</li>
+<li><p>多表查询</p>
+<ul>
+<li><p>多表查询是指基于两个和两个以上的表查询</p>
+</li>
+<li><p>多表查询的条件不能少于 表的个数-1, 否则会出现笛卡尔集</p>
+</li>
+<li><p>自连接</p>
+<ul>
+<li>把同一张表当做两张表使用</li>
+<li>需要给表取别名 表名 表别名</li>
+<li>列名不明确，可以指定列的别名 列名 as</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>子查询</p>
+<ul>
+<li><p>子查询是指嵌入在其它 sql 语句中的 select 语句,也叫嵌套查询</p>
+<ul>
+<li>select * from emp where deptno &#x3D; (select deptno from emp where ename &#x3D; ‘SMITH’);</li>
+</ul>
+</li>
+<li><p>单行子查询</p>
+<ul>
+<li>单行子查询是指只返回一行数据的子查询语句</li>
+</ul>
+</li>
+<li><p>多行子查询</p>
+<ul>
+<li><p>多行子查询指返回多行数据的子查询 使用关键字 in</p>
+<ul>
+<li>select ename, job, sal, deptno from emp<br>where job in (<br>SELECT DISTINCT job<br>FROM emp WHERE deptno &#x3D; 10<br>) and deptno &lt;&gt; 10</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>子查询当作临时表使用</p>
+</li>
+</ul>
+</li>
+<li><p>合并查询</p>
+<ul>
+<li><p>union：该操作符用于取得两个结果集的并集当使用该操作符时，不会取消重复行</p>
+<ul>
+<li>SELECT ename,sal,job FROM emp WHERE sal&gt;2500 – 5<br>UNION<br>SELECT ename,sal,job FROM emp WHERE job&#x3D;’MANAGER</li>
+</ul>
+</li>
+<li><p>union all：该操作赋与union all相似，但是会自动去掉结果集中重复行</p>
+<ul>
+<li>SELECT ename,sal,job FROM emp WHERE sal&gt;2500 – 5<br>UNION ALL<br>SELECT ename,sal,job FROM emp WHERE job&#x3D;’MANAGER’ – 3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>表的复制</p>
+<ul>
+<li><p>自我复制数据(蠕虫复制)</p>
+<ul>
+<li><p>先把 表的记录复制到 my_tab01</p>
+</li>
+<li><p>自我复制</p>
+<ul>
+<li>INSERT INTO my_tab01<br>SELECT * FROM my_tab01;<br>SELECT COUNT(*) FROM my_tab01;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>表外连接</p>
+<ul>
+<li><p>左外连接：如果左侧的表完全显示我们就说是左外连接</p>
+<ul>
+<li>selet… from 表1 left join 表2 on 条件</li>
+</ul>
+</li>
+<li><p>右外连接：如果右侧的表完全显示我们就说是左外连接</p>
+<ul>
+<li>selet… from 表1 right join 表2 on 条件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数的基本使用"><a href="#函数的基本使用" class="headerlink" title="函数的基本使用"></a>函数的基本使用</h2><h3 id="合计-x2F-统计函数"><a href="#合计-x2F-统计函数" class="headerlink" title="合计&#x2F;统计函数"></a>合计&#x2F;统计函数</h3><ul>
+<li><p>count：返回行的总数</p>
+<ul>
+<li>select count(*) from tb_name where</li>
+</ul>
+</li>
+<li><p>sum：返回满足where条件的和 一般用在数值上</p>
+<ul>
+<li>select sum(列名) from tb_name where</li>
+</ul>
+</li>
+<li><p>avg：返回满足where条件的平均值 </p>
+<ul>
+<li>select avg(列名)  from table where</li>
+</ul>
+</li>
+<li><p>max&#x2F;min：返回满足where条件的最大值&#x2F;最小值</p>
+<ul>
+<li>select max(列名) from tb_name where</li>
+</ul>
+</li>
+<li><p>group by：对列进行分组</p>
+<ul>
+<li>select col1,col2 from tb_name group by col</li>
+</ul>
+</li>
+<li><p>having：分组后进行过滤</p>
+<ul>
+<li>select col1,col2 from tb_name group by col having ….</li>
+</ul>
+</li>
+</ul>
+<h3 id="字符串相关函数"><a href="#字符串相关函数" class="headerlink" title="字符串相关函数"></a>字符串相关函数</h3><ul>
+<li>charset(str)：返回字符串集</li>
+<li>concat(string,string2…)：连接字符串</li>
+<li>instr(string,substring)：返回substring在string出现的位置，没用返回0</li>
+<li>ucase(string)：转为大写</li>
+<li>lcase(string)：转为小写</li>
+<li>left(string2,lenth)：从string2中的左边起lenth个字符</li>
+<li>lenth(string)：string的长度【按照字节】</li>
+<li>replace(str,search_str,replace_str)：替换字符串</li>
+<li>strcmp(string1,string2)：比较两字符串的大小</li>
+<li>substring(str,position,[lenth])：从str的position开始【从1开始计算】,去lenth个字符</li>
+<li>ltrim(string),rtrim(String)：去除前端或后端空格</li>
+</ul>
+<h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><ul>
+<li>abs(num)：绝对值</li>
+<li>bin(num)：十进制转二进制</li>
+<li>hex(num)：转为16进制</li>
+<li>ceiling(num)：向上取整</li>
+<li>floor(num)：向下取整</li>
+<li>least(num,num2)：求最小值</li>
+<li>mod(num)：求余</li>
+<li>rand(seed)：取范围为0 &lt;&#x3D; num &lt;&#x3D; 1.0</li>
+<li>round(num)：四舍五入</li>
+</ul>
+<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><ul>
+<li>current_date()：当前日期</li>
+<li>current_time()：当前时间</li>
+<li>current_timestamp()：当前时间戳</li>
+<li>date(datetime)：返回datetime的日期部分</li>
+<li>date_add(date,interval value type)：在date基础上加上日期或时间</li>
+<li>date_sub(date,interval value type)：在date基础上减去日期或时间</li>
+<li>datediff(date1,date2)：两个日期差（结果为天）</li>
+<li>timediff(date1,date2)：两个时间差（结果是时分秒）</li>
+<li>now()：当前时间</li>
+</ul>
+<h3 id="加密和系统函数"><a href="#加密和系统函数" class="headerlink" title="加密和系统函数"></a>加密和系统函数</h3><ul>
+<li>user()：查询用户</li>
+<li>datebase()：数据库名称</li>
+<li>password()：密码加密(8.0后已失效)</li>
+<li>md5()：md5加密(8.0后使用)</li>
+</ul>
+<h3 id="流程控制函数"><a href="#流程控制函数" class="headerlink" title="流程控制函数"></a>流程控制函数</h3><ul>
+<li>if(exper1,exper2,exper3)：如果exp1为TRUE，则返回exp2,否则返回exp3</li>
+<li>ifnull(exp1,exp2)：如果exp1不为null,则返回exp1，否则返回exp2</li>
+<li>select case when exp1 then exp2 when exp3 then exp4 else exp5 end：如果exp1为true，则返回exp2</li>
+</ul>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>约束用于确保数据库的数据满足特定的商业规则</p>
+<ul>
+<li><p>not null </p>
+<ul>
+<li>不为空，如果在列上定义了not null,那么当插入数据时，必须为列提供数据</li>
+</ul>
+</li>
+<li><p>unique</p>
+<ul>
+<li>唯一的，当定义了唯一约束后，该列值是不能重复的。</li>
+<li>如果没有指定not null,则unique字段可以有多个nul</li>
+<li>一张表可以有多个unique字段</li>
+</ul>
+</li>
+<li><p>primary key 主键</p>
+<ul>
+<li><p>primary key不能重复而且不能为null。</p>
+</li>
+<li><p>一张表最多只能有一个主键，但可以是复合主建</p>
+<ul>
+<li>primakry key(列1，列2)</li>
+</ul>
+</li>
+<li><p>主键的指定方式</p>
+<ul>
+<li>字段名 primakry key</li>
+<li>在表定义最后写：primary key(列名)</li>
+</ul>
+</li>
+<li><p>desc 表名可以查看主键</p>
+</li>
+<li><p>每张表往往会设计一个主键</p>
+</li>
+</ul>
+</li>
+<li><p>foreign key</p>
+<ul>
+<li>用于定义主表和从表之间的关系</li>
+<li>FOREIGN KEY(本表字段名)REFERENCES<br>生表名（主键名或unique:字段名）</li>
+<li>外键指问的表的字段，要球是primary key可或者是unique</li>
+<li>表的类型是innodb,这样的表才支持外键</li>
+<li>外键字段的类型要和主键字段的类型一致（长度可以不同）</li>
+<li>外键字段的值，必须在主键字段中出现过，或者为null[前提是外键字段允许为null]</li>
+<li>一旦建立主外键的关系，数据不能随意删除了</li>
+</ul>
+</li>
+<li><p>cheak</p>
+<ul>
+<li>5.7只是语法校验，8.0后才生效</li>
+</ul>
+</li>
+<li><p>auto_increment 自增长</p>
+<ul>
+<li>primary key auto_increment</li>
+<li>一般来说自增长是和primary key配合使用的</li>
+<li>自增长也可以单独使用[但是需要配合一个[unique]</li>
+<li>自增长修饰的字段为整数型的（虽然小数也可以但是非常非常少这样使用)</li>
+<li>自增长默认从1开始，你也可以通过如下命令修改atertable表名auto increment&#x3D;新的开始值；</li>
+<li>如果你添加数据时，给自增长字段（列）指定的有值，则以指定的值为准，如果指定了自增长，一般来说，就按照自增长的规则来添加数据.</li>
+</ul>
+</li>
+</ul>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li><p>数据量很大时，查询是二叉树</p>
+</li>
+<li><p>代价</p>
+<ul>
+<li>更多的磁盘占用</li>
+<li>对DML语句的效率影响</li>
+</ul>
+</li>
+</ul>
+<h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><ul>
+<li><p>主键类型，主动自动的为主索引(类型Primary key)</p>
+</li>
+<li><p>唯一索引(unique)</p>
+</li>
+<li><p>普通索引(index)</p>
+</li>
+<li><p>全文索引(fulltext)</p>
+<ul>
+<li>一般开发，不使用ysql自带的全文索引，而是使用：全文搜索Solr ElasticSearch (ES)</li>
+</ul>
+</li>
+</ul>
+<h3 id="索引的使用"><a href="#索引的使用" class="headerlink" title="索引的使用"></a>索引的使用</h3><ul>
+<li><p>添加</p>
+<ul>
+<li><p>添加索引</p>
+<ul>
+<li>create unique index index_name on tb_name</li>
+</ul>
+</li>
+<li><p>添加主键索引</p>
+<ul>
+<li>alter table tb_name add primary key</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>删除索引</p>
+<ul>
+<li><p>删除索引</p>
+<ul>
+<li>drop index index_name on tb_name</li>
+</ul>
+</li>
+<li><p>删除主键索引</p>
+<ul>
+<li>alter table tb_name drop primary key</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询索引</p>
+<ul>
+<li>show index(es) from tb_name</li>
+<li>show key from tb_name</li>
+<li>desc tb_name</li>
+</ul>
+</li>
+</ul>
+<h3 id="那些列适合索引"><a href="#那些列适合索引" class="headerlink" title="那些列适合索引"></a>那些列适合索引</h3><ul>
+<li><p>较频繁的作为查询条件字段应该创建索引</p>
+<ul>
+<li>select from emp where empno 1</li>
+</ul>
+</li>
+<li><p>唯一性太差的字段不适合单独创建索引，即使频繁作为查询条件</p>
+<ul>
+<li>select from emp where sex &#x3D;</li>
+</ul>
+</li>
+<li><p>更新非常频繁的字段不适合创建索引</p>
+<ul>
+<li>select from emp where logincount 1</li>
+</ul>
+</li>
+<li><p>不会出现在VHERE子句中字段不该创建索</p>
+</li>
+</ul>
+<h2 id="事物"><a href="#事物" class="headerlink" title="事物"></a>事物</h2><h3 id="什么是事物"><a href="#什么是事物" class="headerlink" title="什么是事物"></a>什么是事物</h3><ul>
+<li>事务用于保证数据的一致性，它由一组相关的dml语句组成，该组的dml语句要么全部成功，要么全部失败。</li>
+</ul>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><ul>
+<li>开始一个事物：start transaction</li>
+<li>保存点：savepoint</li>
+<li>rollback to 保存点名–&gt;回退事物</li>
+<li>rollback 回退全部事物</li>
+<li>commit 提交事物，提交后无法回退</li>
+</ul>
+<h3 id="小细节"><a href="#小细节" class="headerlink" title="小细节"></a>小细节</h3><ul>
+<li>如果不开始事务，默认情况下，dml 操作是自动提交的，不能回滚</li>
+<li>如果开始一个事务，你没有创建保存点. 你可以执行 rollback,默认回退到事物开始的状态</li>
+<li>你也可以在这个事务中(还没有提交时), 创建多个保存点</li>
+<li>你可以在事务没有提交前，选择回退到哪个保存点</li>
+<li>InnoDB 存储引擎支持事务 , MyISAM</li>
+</ul>
+<h3 id="事物隔离级别"><a href="#事物隔离级别" class="headerlink" title="事物隔离级别"></a>事物隔离级别</h3><ul>
+<li><p>什么是事物隔离</p>
+<ul>
+<li><p>多个连接开启各自事务操作数据库中数据时，数据库系统要负责隔离操作，以保证各个连接在获取数据时的准确性。</p>
+</li>
+<li><p>如果不考虑隔离性，可能会引发下面问题</p>
+<ul>
+<li>脏读</li>
+<li>不可重复读</li>
+<li>幻读</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>四种隔离级别</p>
+<ul>
+<li>读未提交(read uncommitted)</li>
+<li>读已提交(read committed)</li>
+<li>可重复读(repeatable read)</li>
+<li>可串行化(serializable)</li>
+</ul>
+</li>
+<li><p>设置隔离级别</p>
+<ul>
+<li><p>查看当前会话隔离级别</p>
+<ul>
+<li>select @@transaction_isolation;</li>
+</ul>
+</li>
+<li><p>设置会话隔离级别为可重复读</p>
+<ul>
+<li>set session transaction isolation level repeatable read;</li>
+</ul>
+</li>
+<li><p>设置会话隔离级别为读未提交</p>
+<ul>
+<li>set session transaction isolation level read uncommitted;</li>
+</ul>
+</li>
+<li><p>设置会话隔离级别为读已提交</p>
+<ul>
+<li>set session transaction isolation level read committed;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>事物ACID</p>
+<ul>
+<li><p>原子性</p>
+<ul>
+<li>原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</li>
+</ul>
+</li>
+<li><p>一致性</p>
+<ul>
+<li>事务必须使数据库从一个一致性状态变换到另外一个一致性状态</li>
+</ul>
+</li>
+<li><p>隔离性</p>
+<ul>
+<li>事务的隔离性是多个用户并发访问数据库时，数据库为每一个用户开启的事务，不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离</li>
+</ul>
+</li>
+<li><p>持久性</p>
+<ul>
+<li>持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的接下来即使数据库发生故障也不应该对其有任何影响</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="mysql-引擎"><a href="#mysql-引擎" class="headerlink" title="mysql 引擎"></a>mysql 引擎</h2><p>六种类型</p>
+<ul>
+<li><p>CSV</p>
+</li>
+<li><p>Memory</p>
+<ul>
+<li>数据存储在内存中[关闭了 Mysql 服务，数据丢失, 但是表结构还在]</li>
+<li>执行速度很快(没有 IO 读写) </li>
+<li>默认支持索引(hash 表</li>
+</ul>
+</li>
+<li><p>ARCHIVE</p>
+</li>
+<li><p>MRG_MYISAM</p>
+</li>
+<li><p>MYISAM</p>
+<ul>
+<li>添加速度快</li>
+<li>不支持外键和事物</li>
+<li>支持表级锁</li>
+</ul>
+</li>
+<li><p>Innodbd</p>
+<ul>
+<li>支持事物</li>
+<li>支持外键</li>
+<li>支持行级锁</li>
+</ul>
+</li>
+</ul>
+<h3 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h3><ul>
+<li>如果你的应用不需要事务，处理的只是基本的CRUD操作，那么MyISAM是不二选择，速度快</li>
+<li>如果需要支持事务，选择InnoDB。</li>
+<li>Memory存储引擎就是将数据存储在内存中，由于没有磁盘I.&#x2F;O的等待，<br>速度极快。但由于是内存存储引擎，所做的任何修改在服务器重启后都将<br>消失。（经典用法用户的在线状态0）</li>
+</ul>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>视图是一个虚拟表，其内容由查询定义。同真实的表一样，视图包含列，其数据来自对应的真实表（基表）</li>
+<li>视图是根据基表（可以是多个基表）来创建的视图是虚拟的表</li>
+<li>视图也有列，数据来自基表</li>
+<li>通过视图可以修改基表的数据</li>
+<li>基表的改变，也会影响到视图的数据</li>
+</ul>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ul>
+<li><p>创建视图</p>
+<ul>
+<li>create view 视图名  as select语句</li>
+</ul>
+</li>
+<li><p>更新成新视图</p>
+<ul>
+<li>alter view 视图名 as select语句</li>
+</ul>
+</li>
+<li><p>查看视图</p>
+<ul>
+<li>show create view</li>
+</ul>
+</li>
+<li><p>删除视图</p>
+<ul>
+<li>drop view 视图1,视图2</li>
+</ul>
+</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：MySQL基础笔记</li>
+        <li>本文作者：violet2233</li>
+        <li>创建时间：2022-06-21 15:38:32</li>
+        <li>
+            本文链接：https://violet2233.top/2022/06/21/MySQL基础笔记/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/06/29/MyBatis%E7%AC%94%E8%AE%B0/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MyBatis笔记</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/06/21/JDBC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">JDBC学习笔记</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">violet2233</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">mysql基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="nav-text">安装及配置环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">数据库的基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">常用数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-text">数值类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="nav-text">字符串，二进制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8B"><span class="nav-text">日期类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">表的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%EF%BC%9Acreate-table-tb-name"><span class="nav-text">创建表：create table tb_name();</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8"><span class="nav-text">修改表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84crud"><span class="nav-text">数据库的crud</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%AF%AD%E5%8F%A5%EF%BC%9Ainsert"><span class="nav-text">添加语句：insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%AF%AD%E5%8F%A5%EF%BC%9Aupdate"><span class="nav-text">修改语句：update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%AF%AD%E5%8F%A5%EF%BC%9Adelete"><span class="nav-text">删除语句：delete</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%EF%BC%9Aselect"><span class="nav-text">查询语句：select</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">函数的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E8%AE%A1-x2F-%E7%BB%9F%E8%AE%A1%E5%87%BD%E6%95%B0"><span class="nav-text">合计&#x2F;统计函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-text">字符串相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="nav-text">数学函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-text">日期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86%E5%92%8C%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="nav-text">加密和系统函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%87%BD%E6%95%B0"><span class="nav-text">流程控制函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F"><span class="nav-text">约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="nav-text">索引类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">索引的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E4%BA%9B%E5%88%97%E9%80%82%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-text">那些列适合索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E7%89%A9"><span class="nav-text">事物</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E7%89%A9"><span class="nav-text">什么是事物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%86%E8%8A%82"><span class="nav-text">小细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-text">事物隔离级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-%E5%BC%95%E6%93%8E"><span class="nav-text">mysql 引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9"><span class="nav-text">如何选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">基本使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
